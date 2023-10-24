@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RPL2</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="container mt-5">
+    <div class="col-md- text-center mx-auto">
+      <% if (jenis2.length===0){ %>
+        <div>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Launch
+            demo modal</button>
+        </div>
+        <%} else {%>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">TAMBAH
+          </button>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div style="display: flex;">
+              <h3 style="margin-right: 10px">Saldo :</h3>
+              <h3 id="saldo"></h3>
+            </div>
+            <div class="d-flex">
+              <a href="/transaksi"><i style="font-size: 2rem; " class="fa-solid fa-cart-shopping fa-bounce"></i></a>
+              <a href="/shop/<%= id %>">
+                <i style="font-size: 2rem; margin-left: 1rem;" class="fa-solid fa-shop fa-bounce"></i>
+              </a>
+            </div>
+          </div>
+          <table class="table table-bordered border-primary" style="margin-bottom: 2rem">
+            <tr class="table-primary">
+              <th style="width: 200px">Id barang</th>
+              <th style="width: 200px">Nama barang</th>
+              <th style="width: 200px">harga</th>
+              <th style="width: 200px">stock</th>
+              <th style="width: 100px" style="text-align: center" colspan="2">action</th>
+            </tr>
+            <% for(let barang of jenis2) { %>
+              <tr>
+                <td>
+                  <%= barang.id_barang %>
+                </td>
+                <td style="width: 200px">
+                  <%= barang.Nama_barang %>
+                </td>
+                <td>
+                  <%= uang(barang.harga) %>
+                </td>
+                <%= barang.jumlah %>
+                  <td>
+                    <%= barang.stock %>
+                  </td>
+                  <!-- btn -->
+                  <td> <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                      onclick="barang('<%=barang.id_barang%>','<%=barang.harga %>', '<%=barang.stock %>')"
+                      data-bs-target="#modalBarang">Pilih </button> </td>
+                  <td> <a href="/hapusBarang/<%= barang.id_barang %>" class="btn btn-danger btn-sm"
+                      onclick="return confirm('DELETE')">Hapus</a> </td>
+              </tr>
+
+              <% }} %>
+          </table>
+    </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <%- include('modal.ejs') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"></script>
+    <script src="/script.js"></script>
+</body>
+
+</html>
